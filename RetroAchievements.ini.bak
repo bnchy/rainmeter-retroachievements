@@ -482,6 +482,56 @@ SolidColor=0,0,0,1
 LeftMouseUpAction=[!CommandMeasure MeasureScript "ToggleFilter()"]
 ToolTipText=Click to switch between achievements you have earned and the ones still locked
 
+; -- refresh / edit -----------------------------------------------
+
+[MeterRefresh]
+Meter=String
+MeterStyle=StyleDim
+StringAlign=Right
+X=(#SkinWidth#+16)
+Y=50
+Text=REFRESH
+LeftMouseUpAction=[!CommandMeasure MeasureRecent "Update"][!CommandMeasure MeasureProfile "Update"][!CommandMeasure MeasureRank "Update"]
+MouseOverAction=[!SetOption MeterRefresh FontColor #AccentColor#][!UpdateMeter MeterRefresh][!Redraw]
+MouseLeaveAction=[!SetOption MeterRefresh FontColor #DimColor#][!UpdateMeter MeterRefresh][!Redraw]
+
+[MeterEdit]
+Meter=String
+MeterStyle=StyleDim
+StringAlign=Right
+X=(#SkinWidth#-44)
+Y=50
+Text=EDIT
+LeftMouseUpAction=["notepad.exe" "#@#Variables.inc"]
+MouseOverAction=[!SetOption MeterEdit FontColor #AccentColor#][!UpdateMeter MeterEdit][!Redraw]
+MouseLeaveAction=[!SetOption MeterEdit FontColor #DimColor#][!UpdateMeter MeterEdit][!Redraw]
+
+; -- options: clear cached art / sign out --------------------------
+
+[MeterCache]
+Meter=String
+MeterStyle=StyleDim
+StringAlign=Right
+X=(#SkinWidth#-88)
+Y=50
+Text=CLEAR CACHE
+LeftMouseUpAction=["#@#ClearCache.bat"][!Refresh]
+ToolTipText=Delete the downloaded badge images. They are re-fetched as needed, so this is safe.
+MouseOverAction=[!SetOption MeterCache FontColor #AccentColor#][!UpdateMeter MeterCache][!Redraw]
+MouseLeaveAction=[!SetOption MeterCache FontColor #DimColor#][!UpdateMeter MeterCache][!Redraw]
+
+[MeterLogout]
+Meter=String
+MeterStyle=StyleDim
+StringAlign=Right
+X=(#SkinWidth#-160)
+Y=50
+Text=LOG OUT
+LeftMouseUpAction=[!CommandMeasure MeasureScript "Logout()"]
+ToolTipText=Removes your username and API key from this PC and returns to the setup screen. You will need to paste your Web API key again to sign back in.
+MouseOverAction=[!SetOption MeterLogout FontColor #AccentColor#][!UpdateMeter MeterLogout][!Redraw]
+MouseLeaveAction=[!SetOption MeterLogout FontColor #DimColor#][!UpdateMeter MeterLogout][!Redraw]
+
 ; -- status -------------------------------------------------------
 
 [MeterStatus]
@@ -967,96 +1017,3 @@ Meter=Image
 MeterStyle=StyleBadge
 X=588
 Y=343
-
-; =================================================================
-; SETTINGS MENU
-; =================================================================
-; Defined last so the dropdown paints over the badge rows. The
-; items are their own group, hidden until RA.lua opens the menu,
-; so ShowMeterGroup Main never reveals them.
-
-[MeterMenuBtn]
-Meter=String
-MeterStyle=StyleDim
-FontSize=11
-StringAlign=Right
-X=(#SkinWidth#+16)
-Y=47
-Text=...
-SolidColor=0,0,0,1
-Padding=8,4,4,4
-LeftMouseUpAction=[!CommandMeasure MeasureScript "ToggleMenu()"]
-ToolTipText=Settings
-
-[MeterMenuBg]
-Meter=Shape
-X=(#SkinWidth#-100)
-Y=64
-Shape=Rectangle 0,0,116,82,8 | Fill Color 20,20,24,245 | StrokeWidth 1 | Stroke Color #BgStroke#
-Group=Menu
-Hidden=1
-
-[MeterRefresh]
-Meter=String
-MeterStyle=StyleDim
-StringAlign=Right
-X=(#SkinWidth#+4)
-Y=72
-Text=REFRESH
-SolidColor=0,0,0,1
-Padding=6,3,6,3
-Group=Menu
-Hidden=1
-LeftMouseUpAction=[!CommandMeasure MeasureRecent "Update"][!CommandMeasure MeasureProfile "Update"][!CommandMeasure MeasureRank "Update"][!CommandMeasure MeasureScript "CloseMenu()"]
-ToolTipText=Fetch your latest games, points and rank now
-MouseOverAction=[!SetOption MeterRefresh FontColor #AccentColor#][!UpdateMeter MeterRefresh][!Redraw]
-MouseLeaveAction=[!SetOption MeterRefresh FontColor #DimColor#][!UpdateMeter MeterRefresh][!Redraw]
-
-[MeterCache]
-Meter=String
-MeterStyle=StyleDim
-StringAlign=Right
-X=(#SkinWidth#+4)
-Y=90
-Text=CLEAR CACHE
-SolidColor=0,0,0,1
-Padding=6,3,6,3
-Group=Menu
-Hidden=1
-LeftMouseUpAction=["#@#ClearCache.bat"][!Refresh]
-ToolTipText=Delete the downloaded badge images. They are re-fetched as needed, so this is safe.
-MouseOverAction=[!SetOption MeterCache FontColor #AccentColor#][!UpdateMeter MeterCache][!Redraw]
-MouseLeaveAction=[!SetOption MeterCache FontColor #DimColor#][!UpdateMeter MeterCache][!Redraw]
-
-[MeterEdit]
-Meter=String
-MeterStyle=StyleDim
-StringAlign=Right
-X=(#SkinWidth#+4)
-Y=108
-Text=EDIT
-SolidColor=0,0,0,1
-Padding=6,3,6,3
-Group=Menu
-Hidden=1
-LeftMouseUpAction=["notepad.exe" "#@#Variables.inc"][!CommandMeasure MeasureScript "CloseMenu()"]
-ToolTipText=Open Variables.inc to change colours, size and how many games show
-MouseOverAction=[!SetOption MeterEdit FontColor #AccentColor#][!UpdateMeter MeterEdit][!Redraw]
-MouseLeaveAction=[!SetOption MeterEdit FontColor #DimColor#][!UpdateMeter MeterEdit][!Redraw]
-
-[MeterLogout]
-Meter=String
-MeterStyle=StyleDim
-StringAlign=Right
-X=(#SkinWidth#+4)
-Y=126
-Text=LOG OUT
-SolidColor=0,0,0,1
-Padding=6,3,6,3
-Group=Menu
-Hidden=1
-LeftMouseUpAction=[!CommandMeasure MeasureScript "Logout()"]
-ToolTipText=Removes your username and API key from this PC and returns to the setup screen.
-MouseOverAction=[!SetOption MeterLogout FontColor #AccentColor#][!UpdateMeter MeterLogout][!Redraw]
-MouseLeaveAction=[!SetOption MeterLogout FontColor #DimColor#][!UpdateMeter MeterLogout][!Redraw]
-
